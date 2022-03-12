@@ -19,14 +19,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        
 
                         @if (User.Identity.IsAuthenticated && User.IsInRole("System Administrator") || User.IsInRole("Admin"))
                         {
                             //User Management Nav
-
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" href="#">
                                     User Management
@@ -81,6 +81,9 @@
 
                                 </ul>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            </li>
                         }
                         @if (User.Identity.IsAuthenticated && User.IsInRole("General User") || User.IsInRole("Employee"))
                         {
@@ -100,7 +103,7 @@
                             </li>
                         }
 
-                        </ul>
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
