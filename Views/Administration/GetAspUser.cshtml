@@ -1,0 +1,90 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<ApplicationUser>
+@{
+    int i = 0;
+    string period = ".";
+}
+
+<section>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-center p-3"> Application User</h4>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col" style="float:right">
+
+                        <input type="text" id="search" class="form-control" placeholder="Search for details" title="Type in a name">
+                        <br />
+                    </div>
+                  
+                </div>
+                <table name="table" class="table table-striped table-dark" id="myTable">
+
+
+                    <tr>
+                        <th> Serial</th>
+                        @*<th>
+                    Users Id
+                </th>*@
+                        <th>
+                            User Email
+                        </th>
+                        <th>
+                            Department
+                        </th>
+
+                        <th>
+                            Employee Id
+                        </th>
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+
+                        @if (@item.Id == @item.Id)
+                        {
+
+                            i = i + 1;
+                        }
+                        <tr>
+                            <td>
+                                @i@period
+
+                            </td>
+                            <td> @item.Email</td>
+                            @*<td> @item.Id</td>*@
+                            <td> @item.Department</td>
+
+                            <td> @item.EmployeeId</td>
+
+
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                //Data toggle
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>

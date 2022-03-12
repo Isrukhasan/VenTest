@@ -1,0 +1,63 @@
+﻿@using Venturus.ViewModel
+
+@model IEnumerable<Venturus.ViewModel.UserRoleViewModel>
+
+    @{
+        var roleId = ViewBag.roleId;
+    }
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table name="table">
+                    <tr>
+                        <th width="10px">
+                            ID
+                        </th>
+
+                        <th >
+                            Roles
+                        </th>
+                        <th >
+                            Action
+                        </th>
+                        
+                    </tr>
+                    
+
+                    @foreach (var item in Model){
+                        <tr>
+                            <td> <b>@Html.DisplayFor(modelItem => item.UserId)</b></td>
+                        </tr>
+                        <tr>
+                            <td> <b>@Html.DisplayFor(modelItem => item.RoleId)</b></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*<form method="post">
+    <h2> Add /remove</h2>
+    <div>
+        
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="form form-check m-2">
+                <input asp-for="@Model[i].IsSelected" class="form-check-input"/>
+                <label class="form-check-label">
+                    @Model[i].UserName;
+                </label>
+            </div>
+        }
+    </div>
+    <div >
+        <input type="submit" value="update" class="btn btn-primary"/>
+        <a asp-action="EditRole" class="btn btn-primary" asp-route-id="@roleId">Cancel</a>
+    </div>
+</form>*@

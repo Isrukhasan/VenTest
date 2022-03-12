@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+@{
+    int i = 0;
+    string period = ".";
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table name="table" class="table table-striped table-dark">
+                    <tr>
+                         <th>
+                            Serial
+                        </th>
+                        <th>
+                            Role Id
+                        </th>
+
+                        <th>
+                            Roles Name
+                        </th>
+                        <th>
+                            Edit
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+
+                    </tr>
+
+
+                    @foreach (var item in Model)
+                    {
+                        @if (@item.Id == @item.Id)
+                        {
+
+                            i = i + 1;
+                        }
+                        <tr>
+                            <td>
+                                    @i@period
+
+                                </td>
+                            <td> @Html.DisplayFor(modelItem => item.Id)</td>
+
+                            <td> @Html.DisplayFor(modelItem => item.Name)</td>
+
+
+                            <td> <a class="btn btn-primary" asp-action="EditRole" asp-controller="Administration" asp-route-id="@item.Id"> Edit Role</a></td>
+
+
+                            <td><a class="btn btn-danger" asp-action="DeleteRole" asp-controller="Administration" asp-route-roleId="@item.Id"> Delete Role</a></td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+@*@foreach (var role in Model)
+    {
+        <div>
+            Role Id @role.Id
+        </div>
+        <div class="car-body">
+            <p>Roles: @role.Name</p>
+        </div>
+        <a  class="btn btn-primary" asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id"> Edit Role</a>
+        <br/>
+        <a href="#" class="btn btn-danger"> Delete Role</a>
+    }*@

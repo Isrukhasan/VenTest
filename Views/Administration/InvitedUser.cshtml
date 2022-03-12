@@ -1,0 +1,165 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int i = 0;
+    string period = ".";
+}
+<section>
+    <div class="container">
+        <h3 class="text-center"> Invitation Summery</h3>
+        <hr/>
+        <div class="row">
+
+            <div class="col">
+                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Total Invited</div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@ViewBag.totalInvited People</h5>
+                    </div>
+                    @*<a class="btn btn-info" href="javascript:history.go(-1)">View Details</a>*@
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Total Accepted</div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@ViewBag.totalAccepted People</h5>
+                    </div>
+                    @*<a class="btn btn-success" href="javascript:history.go(-1)">View Details</a>*@
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Pending Invite</div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@ViewBag.totallpendingInvitation people</h5>
+                    </div>
+                    @*<a class="btn btn-danger" href="javascript:history.go(-1)">View Details</a>*@
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Cancelled Invite</div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@ViewBag.totallCancelled people</h5>
+                    </div>
+                    @*<a class="btn btn-danger" href="javascript:history.go(-1)"> Back</a>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col"><a class="btn btn-danger" href="javascript:history.go(-1)">Return Back</a></div>
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h3 class="text-center"> Invited User Summary</h3>
+        <div class="row">
+            
+            <div class="col-md-12">
+                <table name="table" class="table table-striped table-dark" id="myTable">
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col" style="float:right">
+                           
+                            <input type="text" id="search" class="form-control" onkeyup="myFunction()" placeholder="Search for details" title="Type in a name">
+                        </div>
+                    </div>
+                    <br />
+                    <tr>
+                        <th>
+                            Serial
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Employee ID
+                        </th>
+                        <th> Invitation Status</th>
+                        <th>Role</th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+
+                    @foreach (var item in ViewBag.invitedPeoples)
+                    {
+                        @if (@item.InviationId == @item.InviationId)
+                        {
+
+                            i = i + 1;
+                        }
+                        <tr>
+                            <td>
+                                @i@period
+
+                            </td>
+                            @*<td> @item.InviationId </td>*@
+                            <td> @item.Email </td>
+
+                            <td>@item.custom3</td>
+
+
+                            @*@if (@item.IsPassReset.ToString() == "1")
+                {
+                    <td style="color:green;font-weight:bold"> Accepted User</td>
+                }
+
+                @if (item.IsPending=="1")
+                {
+                   <td style="color:yellow;font-weight:bold"> Pending User Invitation
+
+
+                </td>
+
+                }
+                @if (@item.Iscancelled=="1")
+                {
+                    <td style="color:red;font-weight:bold"> Cancelled Invitation</td>
+                }*@
+                            <td>@item.custom2</td>
+                            <td>@item.custom1</td>
+                            <td>
+                                @if (@item.custom2 == "Invitation cancelled manually")
+                                {
+                                    <a class="btn btn-danger disabled" asp-action="CancelInvitaion" asp-controller="Administration" asp-route-id="@item.InviationId"> Cancel Invitation</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-danger" asp-action="CancelInvitaion" asp-controller="Administration" asp-route-id="@item.InviationId"> Cancel Invitation</a>
+
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                //Data toggle
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>

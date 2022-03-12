@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<section>
+    <div class="container CenterMe ">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Invite user by Email </h4>
+                <br/>
+                <form asp-action="SentInvite" asp-controller="Home" data-ajax="true" data-ajax-method="POST" data-ajax-begin="OnBegin" data-ajax-failure="OnFailure" data-ajax-success="OnSuccess" data-ajax-complete="OnComplete" id="InviteUser">
+                    <label>Invite User</label>
+                    @*<input type="hidden" name="IRole" id="IRole" class="form-control" disabled value="user" />*@
+
+                    <input type="email" name="Iemail" id="Iemail" placeholder="someone@mail.com" required class="form-control" value="" />
+                    <label>Invite As</label>
+                    <select class="form-control" required name="IRole" id="IRole" asp-items="new SelectList(ViewBag.aspRoles)">
+                        <option> -- select from available roles --</option>
+                    </select>
+                   
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" value="Submit" class="btn btn-info">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+       
+    </div>
+    
+</section>

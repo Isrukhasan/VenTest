@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<section>
+    <div class="container CenterMe ">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>User Profile update </h4>
+                <br/>
+                <h5> Email : @ViewBag.email <br/> Employee Id: @ViewBag.employeeId</h5>
+                <form asp-action="updateUserView" asp-controller="Administration" data-ajax="true" data-ajax-method="POST" data-ajax-begin="OnBegin" data-ajax-failure="OnFailure" data-ajax-success="OnSuccess" data-ajax-complete="OnComplete" id="InviteUser">
+                    <label></label>
+                    @*<input type="hidden" name="IRole" id="IRole" class="form-control" disabled value="user" />*@
+                    <label> Department</label>
+                    <input type="text" name="dept" id="ip" disabled value=" @ViewBag.dept " class="form-control"/>
+                    <label> Birthday</label>
+                    <input type="datetime" name="date" id="ip1" disabled value="@ViewBag.birthday" class="form-control"/>
+                    <label> Address</label>
+                    <input type="text" name="address" id="ip2" disabled value = "@ViewBag.address" class="form-control"/>
+                    
+                   
+                    <br />
+                    <div class="row">
+                        <div class="col text-center">
+                            <input type="button" id="edit" value="Enable Editing" class="btn btn-primary">
+                        </div>
+                        <div class="col">
+                            <input type="submit"  value="Submit" class="btn btn-info">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+       
+    </div>
+</section>
+<script>
+    var el = document.getElementById('edit');
+    el.addEventListener('click', function(){
+        document.getElementById('ip1').disabled = false;
+        document.getElementById('ip').disabled = false;
+        document.getElementById('ip2').disabled = false;
+        //document.querySelectorAll('.form-control').disabled = false;
+    });
+</script>

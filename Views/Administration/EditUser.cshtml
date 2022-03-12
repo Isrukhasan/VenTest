@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Venturus.ViewModel.EdituserViewModel
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                @*Form addition*@
+                
+                <form method="post">
+                    <div class="form-group row">
+                        <label> Update Department</label>
+                        <input asp-for="Id"   value="a7daf165-8c5f-4497-91a6-6bdd4a056575" disabled class="form-control"/> <br/>
+
+                        <label> Dept Department</label>
+                        <input asp-for="Department" disabled class="form-control"/> 
+                    </div>
+                    
+                    <div class="form-group row">
+                        <button type="submit" class="btn btn-info"></button>
+                    </div>
+                   
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
