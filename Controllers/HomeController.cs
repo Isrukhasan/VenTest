@@ -70,7 +70,7 @@ namespace Venturus.Controllers
 
 
 
-        
+        [Authorize(Roles = "System Administrator")]
         public IActionResult Invite()
         {
             var aspRoles = roleManager.Roles;
