@@ -19,7 +19,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                        
+
 
                         @if (User.Identity.IsAuthenticated && User.IsInRole("System Administrator") || User.IsInRole("Admin"))
                         {
@@ -29,7 +29,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" href="#">
-                                    User Management
+                                    Manage User
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
@@ -52,7 +52,7 @@
                             //Role Management Nav
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Role Management
+                                    Manage Role
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
@@ -70,7 +70,7 @@
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Profile Management
+                                    Manage Profile
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
@@ -83,6 +83,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/ForgotPassword">Reset Pass</a>
                             </li>
                         }
                         @if (User.Identity.IsAuthenticated && User.IsInRole("General User") || User.IsInRole("Employee"))
@@ -100,6 +103,9 @@
                                     </li>
 
                                 </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/ForgotPassword">Pass Reset</a>
                             </li>
                         }
 
