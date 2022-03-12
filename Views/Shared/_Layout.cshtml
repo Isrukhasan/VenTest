@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,7 +23,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("System Administrator") || User.IsInRole("Admin"))
                         {
                             //User Management Nav
 
@@ -41,9 +40,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="InvitedUser">Invited Employees</a>
                                     </li>
+
+
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Invite">Invite Employee</a>
                                     </li>
+
                                 </ul>
                             </li>
 
@@ -80,8 +82,25 @@
                                 </ul>
                             </li>
                         }
-                        
-                    </ul>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("General User") || User.IsInRole("Employee"))
+                        {
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" href="#">
+                                    My Profile
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-route-id="" asp-action="SingleUserView">Update My Profile</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        }
+
+                        </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>

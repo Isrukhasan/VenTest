@@ -70,7 +70,7 @@ namespace Venturus.Controllers
 
 
 
-        //[Authorize(Roles = "SYSTEM ADMINISTRATOR")]
+        
         public IActionResult Invite()
         {
             var aspRoles = roleManager.Roles;
@@ -120,7 +120,7 @@ namespace Venturus.Controllers
                 Guid G = Guid.NewGuid();
                 
                 emailBody = emailBody+"</br><b>User Name: </b>" + email +" </br>" + "<b>Pasword: </b>" + password + "</br>";
-                emailBody = emailBody  + host+ "/Home/GetUserReg?token=" + G;
+                emailBody = emailBody+" "  + host+ "/Home/GetUserReg?token=" + G;
                 try
                 {   
                     var Invitations = new Inviation();
