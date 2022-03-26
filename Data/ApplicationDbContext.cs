@@ -15,6 +15,7 @@ namespace Venturus.Data
         {
         }
         public DbSet<Inviation> Inviations { get; set; }
+        public virtual DbSet<DataBinding>? DataBindings { get; set; }
         //public virtual DbSet<StoredProcedure>? RetriveData { get; }
 
     //public DbSet<Common> Common { get; set; }

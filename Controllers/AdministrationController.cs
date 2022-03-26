@@ -39,6 +39,52 @@ namespace Venturus.Controllers
         }
         //Change the role of a general user
 
+        [AllowAnonymous]
+        //Update Role according to user
+
+
+        public IActionResult RoleSeriesWithIdForUpdatePage()
+
+        {
+            
+
+            var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
+
+            ViewBag.empRecord = empRecord;
+
+            return View("RoleSeriesForUpdate");
+        }
+        public async Task<IActionResult> RoleSeriesWithIdForUpdate(string UID ,  string NewRole,string PreviousRole)
+
+        {
+            ApplicationUser applicationUser = await _userManager.FindByIdAsync(UID);
+
+            if ((!String.IsNullOrEmpty(UID)&& !String.IsNullOrEmpty(NewRole) && !String.IsNullOrEmpty(PreviousRole))&& PreviousRole!=NewRole)
+            {
+                
+
+                await _userManager.RemoveFromRoleAsync(applicationUser , PreviousRole);
+
+                await _userManager.AddToRoleAsync(applicationUser, NewRole);
+
+                await _userManager.UpdateAsync(applicationUser);
+
+                _notifyService.Success("User Role updated");
+            }
+            else
+            {
+                _notifyService.Warning("Data is Null");
+            }
+
+            //var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
+
+
+            
+
+            return View("RoleSeriesForUpdate");
+        }
+
+        
         public IActionResult GetUsersWithRole()
         {
             return View();
