@@ -49,8 +49,11 @@ namespace Venturus.Controllers
             
 
             var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
+            var roles = roleManager.Roles;
+           
 
             ViewBag.empRecord = empRecord;
+            ViewBag.roles = roles;
 
             return View("RoleSeriesForUpdate");
         }

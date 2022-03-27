@@ -45,6 +45,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Invite">Invite Employee</a>
                                     </li>
+                                   
 
                                 </ul>
                             </li>
@@ -55,6 +56,7 @@
                                     Manage Role
                                     <span class="caret"></span>
                                 </a>
+
                                 <ul class="dropdown-menu" role="menu">
 
                                     <li class="nav-item">
@@ -108,6 +110,9 @@
                                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/ForgotPassword">Pass Reset</a>
                             </li>
                         }
+                         <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="RoleSeriesWithIdForUpdatePage">I</a>
+                                    </li>
 
                     </ul>
                     <partial name="_LoginPartial" />

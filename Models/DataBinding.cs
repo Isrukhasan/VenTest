@@ -11,7 +11,7 @@ namespace Venturus.Models
     {
         [Key]
         public string Id { get; set; }
-        public string  UserID  { get; set; }
+       
         public string RoleName { get; set; }
         public string UserName { get; set; }
         public String RoleId { get; set; }
