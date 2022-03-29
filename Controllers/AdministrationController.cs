@@ -49,17 +49,18 @@ namespace Venturus.Controllers
             
 
             var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
-            var roles = roleManager.Roles;
-           
+            var aspRoles = roleManager.Roles;
+            ViewBag.aspRoles = aspRoles;
 
             ViewBag.empRecord = empRecord;
-            ViewBag.roles = roles;
+           
 
             return View("RoleSeriesForUpdate");
         }
-        public async Task<IActionResult> RoleSeriesWithIdForUpdate(string UID ,  string NewRole,string PreviousRole)
+        public async Task<IActionResult> RoleSeriesWithIdForUpdate(IFormCollection Collection, string UID ,  string NewRole,string PreviousRole)
 
         {
+            NewRole=Collection[NewRole];
             ApplicationUser applicationUser = await _userManager.FindByIdAsync(UID);
 
             if ((!String.IsNullOrEmpty(UID)&& !String.IsNullOrEmpty(NewRole) && !String.IsNullOrEmpty(PreviousRole))&& PreviousRole!=NewRole)

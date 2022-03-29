@@ -58,8 +58,6 @@
                     <td class="row-data"> @item.Id </td>
                     <td class="row-data"> @item.UserName</td>
 
-
-
                     <td class="row-data">@item.RoleName</td>
                     
 
@@ -95,15 +93,24 @@
                         <span class="close">&times;</span>
                         <h4> Are you sure?</h4>
                         
-                        <p> The user associated with<b> <span id="Email"></span> </b> with <b><span id="PreviousRole"></span> </b>to<b>System Admin</b> </p>
+                        <p> The user associated with<b> <span id="Email"></span> </b> <br />Previous Role <b><span id="PreviousRole"></span> </b></p>
+                       
                         
+                        <form asp-action="RoleSeriesWithIdForUpdate" asp-controller="Administration" data-ajax="true" data-ajax-method="POST" >
+                            <label> New Role</label>
+                      <select class="form-control" required name="NewRole" id="NewRole" asp-items="new SelectList(ViewBag.aspRoles)">
+                        <option> -- select from available roles --</option>
+                    </select>
+                    <br />
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-info w-100 text-white"> Yes</a>
+                                <input type="submit" value="Yes" class="btn btn-info w-100 text-white">
+                               
                             </div>
                             <div class="col"> <a class="btn btn-danger w-100  text-white " id ="noBtn"> No</a></div>
                             
                         </div>
+                        </form>
 
                     </div>
             </div>
