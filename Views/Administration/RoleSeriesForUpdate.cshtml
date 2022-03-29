@@ -93,18 +93,26 @@
                         <span class="close">&times;</span>
                         <h4> Are you sure?</h4>
                         
-                        <p> The user associated with<b> <span id="Email"></span> </b> <br />Previous Role <b><span id="PreviousRole"></span> </b></p>
+                    <p> The user associated with <br />
+                        <b> <span id="Email"></span> </b> <br />
+                       @* User Id <span id="aspUserId"></span> <br />
+                        Previous Role <b><span id="PreviousRole"></span> </b>*@
+                    </p>
                        
-                        
-                        <form asp-action="RoleSeriesWithIdForUpdate" asp-controller="Administration" data-ajax="true" data-ajax-method="POST" >
+                        @*asp-action="RoleSeriesWithIdForUpdate" asp-controller="Administration" *@
+                        <form id="RoleForUser" data-ajax="true" data-ajax-method="POST" >
                             <label> New Role</label>
                       <select class="form-control" required name="NewRole" id="NewRole" asp-items="new SelectList(ViewBag.aspRoles)">
                         <option> -- select from available roles --</option>
                     </select>
+                    <input type="hidden" name="aspUserId" id="aspUserId"  />
+                    <input type="hidden" name="previousRole" id="previousRole"   />                    
+
                     <br />
                         <div class="row">
                             <div class="col">
-                                <input type="submit" value="Yes" class="btn btn-info w-100 text-white">
+                                <input id="btnsubmit" type="button" value="Yes" class="btn btn-info w-100 text-white" /> 
+                               
                                
                             </div>
                             <div class="col"> <a class="btn btn-danger w-100  text-white " id ="noBtn"> No</a></div>
@@ -144,15 +152,25 @@
              console.log(rowId);
              var data = document.getElementById(rowId).querySelectorAll(".row-data"); 
              console.log(data);
-             var aspUserId = data[0].innerHTML;
+                var aspUserId = data[0].innerHTML;
                 var email = data[1].innerHTML;
                 var previousRole = data[2].innerHTML;
                 var roleId = data[3].innerHTML;
                 console.log(aspUserId,email,previousRole,roleId);
+                //For showing the data on popup
                 document.getElementById("Email").innerHTML = email;
-                document.getElementById("PreviousRole").innerHTML = previousRole;
-                document.getElementById("AspUserId").innerHTML = aspUserId;
-                document.getElementById("RoleId").innerHTML = roleId;
+                //document.getElementById("previousRole").innerHTML = previousRole;
+                //document.getElementById("aspUserId").innerHTML = aspUserId;
+
+                //For invoking the data on form
+                document.getElementById("previousRole").value = previousRole;
+                document.getElementById("aspUserId").value = aspUserId;
+                
+
+                console.log("Previous Role: " +previousRole);
+                console.log("User Id: " +aspUserId);
+               
+                //document.getElementById("RoleId").innerHTML = roleId;
 
         }
     })
@@ -178,26 +196,30 @@
     //Ajax Jquery 
 
 
-//</script>
-<script type="text/javascript">
-//    function submitStudent() {
-//        var data = $("#studenteForm").serialize();
-//        console.log(data);
-//        alert(data);
-//        $.ajax({
-//            type: 'POST',
-//            url: '/Administration/RoleSeriesWithIdForUpdate',
-//            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-//            data: data,
-//            success: function (result) {
-//                alert('Successfully received Data ');
-//                console.log(result);
-//            },
-//            error: function () {
-//                alert('Failed to receive the Data');
-//                console.log('Failed ');
-//            }
-//        })
-//    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" 
+integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" 
+crossorigin="anonymous">
+</script>
+<script>   
+    $(document).ready(function () {   
+        $("#btnsubmit").click(function (e) {   
+            //Serialize the form datas.   
+            var valdata = $("#RoleForUser").serialize();   
+            //to get alert popup   
+             var formData = new FormData();
+             formData.append("NewRole", $("#NewRole").val());
+             formData.append("previousRole", $("#previousRole").val());
+             formData.append("UID", $("#UID").val());
 
-//</script>
+            $.ajax({   
+                url: "/Administration/Update",   
+                type: "POST",   
+                dataType: 'json',   
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',   
+                data: valdata   
+            });   
+        });   
+    }); 
+    
+</script> 

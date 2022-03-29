@@ -57,17 +57,21 @@ namespace Venturus.Controllers
 
             return View("RoleSeriesForUpdate");
         }
-        public async Task<IActionResult> RoleSeriesWithIdForUpdate(IFormCollection Collection, string UID ,  string NewRole,string PreviousRole)
 
+        [HttpPost]
+        public async Task<IActionResult> Update( IFormCollection collection)
         {
-            NewRole=Collection[NewRole];
-            ApplicationUser applicationUser = await _userManager.FindByIdAsync(UID);
 
-            if ((!String.IsNullOrEmpty(UID)&& !String.IsNullOrEmpty(NewRole) && !String.IsNullOrEmpty(PreviousRole))&& PreviousRole!=NewRole)
+            string NewRole = collection["NewRole"];
+             string PreviousRole = collection["previousRole"];
+            var UID = collection["aspUserId"].ToString();
+            string n=UID.ToString();
+            ApplicationUser applicationUser = await _userManager.FindByIdAsync(n);
+            Console.WriteLine(n);
+
+            if (!String.IsNullOrEmpty(UID) && !String.IsNullOrEmpty(NewRole) && !String.IsNullOrEmpty(PreviousRole) && PreviousRole != NewRole)
             {
-                
-
-                await _userManager.RemoveFromRoleAsync(applicationUser , PreviousRole);
+                await _userManager.RemoveFromRoleAsync(applicationUser, PreviousRole);
 
                 await _userManager.AddToRoleAsync(applicationUser, NewRole);
 
@@ -83,8 +87,10 @@ namespace Venturus.Controllers
             //var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
 
 
-            
-
+            return View();
+        } 
+        public async Task<IActionResult> RoleSeriesWithIdForUpdate()
+        {
             return View("RoleSeriesForUpdate");
         }
 

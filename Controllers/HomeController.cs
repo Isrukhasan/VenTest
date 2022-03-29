@@ -277,8 +277,9 @@ namespace Venturus.Controllers
         }
 
 
-        public IActionResult Index()
+        public async Task <IActionResult> Index()
         {
+            ApplicationUser applicationUser = await _userManager.FindByIdAsync("9f44e59e-55c9-4529-b7ca-ce013d7a5c52");
             return View();
         }
 
