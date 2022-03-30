@@ -39,6 +39,12 @@ namespace Venturus.Controllers
         }
         //Change the role of a general user
 
+
+        public IActionResult NewPopp()
+        {
+            return View();  
+        }
+
         [AllowAnonymous]
         //Update Role according to user
 
