@@ -39,62 +39,117 @@ namespace Venturus.Controllers
         }
         //Change the role of a general user
 
-
-        public IActionResult NewPopp()
-        {
-            return View();  
-        }
-
         [AllowAnonymous]
         //Update Role according to user
-
-
-        public IActionResult RoleSeriesWithIdForUpdatePage()
-
+      
+        public async Task<IActionResult> ChangeRolesForEveryUser(IFormCollection collection)
         {
-            
+            string NewRole = collection["NewRole"];
+            try
+            {                
+                if (!String.IsNullOrEmpty(NewRole))
+                {
+                    
+                    string PreviousRole = collection["previousRole"];
+                    var UID = collection["aspUserId"].ToString();
+                    string n = UID.ToString();
 
-            var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
+                    //We are getting the data from table but this was coming with white space
+                    //So we had to use trim method
+
+                    ApplicationUser applicationUser = await _userManager.FindByIdAsync(UID.Trim());
+
+                    if (!String.IsNullOrEmpty(UID) && !String.IsNullOrEmpty(NewRole) &&
+                    !String.IsNullOrEmpty(PreviousRole) && PreviousRole != NewRole)
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, PreviousRole);
+
+                        await _userManager.AddToRoleAsync(applicationUser, NewRole);
+
+                        await _userManager.UpdateAsync(applicationUser);
+
+
+                    }
+                    else
+                    {
+                        _notifyService.Warning("Data is Null");
+                    }
+                    
+                }
+                else
+                {
+                    //get the All User data from Db by SP and
+                    var empRecords = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
+                    //Get roles
+                    var aspRoless = roleManager.Roles;
+                    ViewBag.aspRoles = aspRoless;
+                    ViewBag.empRecord = empRecords;
+                    return View();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);  
+
+            }
             var aspRoles = roleManager.Roles;
             ViewBag.aspRoles = aspRoles;
-
+            var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
             ViewBag.empRecord = empRecord;
-           
-
-            return View("RoleSeriesForUpdate");
+            
+            return RedirectToAction("ChangeRolesForEveryUser", "Administration");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Update( IFormCollection collection)
-        {
+        //public IActionResult RoleSeriesWithIdForUpdatePage()
 
-            string NewRole = collection["NewRole"];
-             string PreviousRole = collection["previousRole"];
-            var UID = collection["aspUserId"].ToString();
-            string n=UID.ToString();
-            ApplicationUser applicationUser = await _userManager.FindByIdAsync(n);
-            Console.WriteLine(n);
+        //{
+            
 
-            if (!String.IsNullOrEmpty(UID) && !String.IsNullOrEmpty(NewRole) && !String.IsNullOrEmpty(PreviousRole) && PreviousRole != NewRole)
-            {
-                await _userManager.RemoveFromRoleAsync(applicationUser, PreviousRole);
+        //    var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
+        //    var aspRoles = roleManager.Roles;
+        //    ViewBag.aspRoles = aspRoles;
 
-                await _userManager.AddToRoleAsync(applicationUser, NewRole);
+        //    ViewBag.empRecord = empRecord;
+           
 
-                await _userManager.UpdateAsync(applicationUser);
+        //    return View("RoleSeriesForUpdate");
+        //}
 
-                _notifyService.Success("User Role updated");
-            }
-            else
-            {
-                _notifyService.Warning("Data is Null");
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> Update( IFormCollection collection)
+        //{
 
-            //var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
+        //    string NewRole = collection["NewRole"];
+        //     string PreviousRole = collection["previousRole"];
+        //    var UID = collection["aspUserId"].ToString();
+        //    string n=UID.ToString();
 
+        //    //We are getting the data from table but this was coming with white space
+        //    //So we had to use trim method
 
-            return View();
-        } 
+        //    ApplicationUser applicationUser = await _userManager.FindByIdAsync(UID.Trim());
+            
+        //    Console.WriteLine(n);
+
+        //    if (!String.IsNullOrEmpty(UID) && !String.IsNullOrEmpty(NewRole) && 
+        //        !String.IsNullOrEmpty(PreviousRole) && PreviousRole != NewRole)
+        //    {
+        //        await _userManager.RemoveFromRoleAsync(applicationUser, PreviousRole);
+
+        //        await _userManager.AddToRoleAsync(applicationUser, NewRole);
+
+        //        await _userManager.UpdateAsync(applicationUser);
+
+               
+        //    }
+           
+
+        //    //var empRecord = _context.DataBindings.FromSqlRaw("EXECUTE dbo.GetAllUserDetailsWithRoleDetails ").ToList();
+
+        //    _notifyService.Success("User role updated");
+        //    return RedirectToAction("RoleSeriesWithIdForUpdatePage");
+        //} 
         public async Task<IActionResult> RoleSeriesWithIdForUpdate()
         {
             return View("RoleSeriesForUpdate");

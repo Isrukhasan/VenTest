@@ -61,7 +61,8 @@ namespace Venturus.Controllers
         {
 
             var myuser = _userManager.GetUserId(User);
-            ApplicationUser applicationUser = await _userManager.FindByIdAsync(myuser);
+
+            ApplicationUser applicationUser = await _userManager.FindByIdAsync("26a11ebb-5cbd-435d-9021-e0720d17ca58");
 
             applicationUser.Custom2 = "FTest";
             await _userManager.UpdateAsync(applicationUser);

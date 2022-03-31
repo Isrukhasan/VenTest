@@ -100,7 +100,7 @@
                     </p>
                        
                         @*asp-action="RoleSeriesWithIdForUpdate" asp-controller="Administration" *@
-                        <form id="RoleForUser" data-ajax="true" data-ajax-method="POST" >
+                        <form id="RoleForUser" data-ajax="true" data-ajax-method="POST" data-ajax-update="#myTable" >
                             <label> New Role</label>
                       <select class="form-control" required name="NewRole" id="NewRole" asp-items="new SelectList(ViewBag.aspRoles)">
                         <option> -- select from available roles --</option>
@@ -145,7 +145,7 @@
 
     // When the user clicks the button, open the modal
         btn.forEach(item => {
-        console.log(item)
+        //console.log(item)
         item.onclick = function () {
                  modal.style.display = "block";
                 var rowId =event.target.parentNode.parentNode.id;
@@ -156,7 +156,7 @@
                 var email = data[1].innerHTML;
                 var previousRole = data[2].innerHTML;
                 var roleId = data[3].innerHTML;
-                console.log(aspUserId,email,previousRole,roleId);
+                //console.log(aspUserId,email,previousRole,roleId);
                 //For showing the data on popup
                 document.getElementById("Email").innerHTML = email;
                 //document.getElementById("previousRole").innerHTML = previousRole;
@@ -196,12 +196,13 @@
 
     //Ajax Jquery 
 
-
+    
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" 
 integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" 
 crossorigin="anonymous">
 </script>
+
 <script>   
     $(document).ready(function () {   
         $("#btnsubmit").click(function (e) {   
@@ -221,17 +222,21 @@ crossorigin="anonymous">
                 data: valdata,  
                 success: function(data){ 
                     console.log(data)
-                if(data.success == true){ 
-                alert('success'); 
-                }
-                error: function(){
-                 alert('error!');
+                    if(data.success == true){ 
+                    alert('success'); 
                     }
-                });
-            var pp=$("#myModal");            
+                },
+                error: function(error){
+                 console.log(error);
+                    } 
+            });
+            var pp=$("#myModal");
+            
             pp.hide();
         }); 
        
     }); 
     
 </script> 
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js"></script>

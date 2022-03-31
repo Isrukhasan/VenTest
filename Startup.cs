@@ -43,7 +43,7 @@ namespace Venturus
                 )
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); ;
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
             services.AddRazorPages();
             services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
             //Added for role          
