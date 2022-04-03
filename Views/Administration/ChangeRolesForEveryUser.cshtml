@@ -100,7 +100,7 @@
                     </p>
                        
                         @*asp-action="RoleSeriesWithIdForUpdate" asp-controller="Administration" *@
-                        <form id="RoleForUser" data-ajax="true" data-ajax-method="POST" data-ajax-update="#myTable" >
+                        <form id="RoleForUser" asp-action="ChangeRolesForEveryUser"  asp-controller="Administration" data-ajax-update="#myTable" >
                             <label> New Role</label>
                       <select class="form-control" required name="NewRole" id="NewRole" asp-items="new SelectList(ViewBag.aspRoles)">
                         <option> -- select from available roles --</option>
@@ -111,9 +111,9 @@
                     <br />
                         <div class="row">
                             <div class="col">
-                                <input id="btnsubmit" type="button" value="Yes" class="btn btn-info w-100 text-white" /> 
+                                @*<input id="btnsubmit" type="button" value="Yes" class="btn btn-info w-100 text-white" />*@ 
                                
-                               
+                                <input type="submit" value="Submit" class="btn btn-info">
                             </div>
                             <div class="col"> <a class="btn btn-danger w-100  text-white " id ="noBtn"> No</a></div>
                             
